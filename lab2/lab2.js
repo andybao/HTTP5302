@@ -1,3 +1,31 @@
+/*
+ *    Part 2
+ */
+//html elements
+var inputBirthdayDate = document.getElementById("input--date-picker");
+var btnBirthdaySubmit = document.getElementById("button--birthday");
+var pBirthdayMsg = document.getElementById("p--birthday-message");
+btnBirthdaySubmit.onclick = function () {
+    var userInput = inputBirthdayDate.value;
+    var parts = userInput.split('-');
+    var birthday = new Date(parts[0], parts[1] - 1, parts[2]);
+    var msg = birthdayCheck(birthday);
+    pBirthdayMsg.innerHTML = msg;
+};
+function birthdayCheck(b) {
+    var today = new Date();
+    if (b.getDate() == today.getDate() && b.getMonth() == today.getMonth()) {
+        return 'Happy Birthday!';
+    }
+    else {
+        today.setDate(b.getDate());
+        today.setMonth(b.getMonth());
+        return today.toString();
+    }
+}
+/*
+ *    Class demo for part 1
+ */
 //enums
 var months;
 (function (months) {

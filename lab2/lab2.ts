@@ -1,3 +1,44 @@
+/*
+ *    Part 2
+ */
+
+//html elements
+let inputBirthdayDate = <HTMLInputElement>document.getElementById("input--date-picker");
+
+let btnBirthdaySubmit = document.getElementById("button--birthday");
+let pBirthdayMsg = document.getElementById("p--birthday-message");
+
+
+btnBirthdaySubmit.onclick = function () {
+    let userInput =inputBirthdayDate.value;
+    
+    let parts =userInput.split('-');
+    let birthday : Date = new Date(parts[0], parts[1] - 1, parts[2]);
+
+
+    let msg : string = birthdayCheck(birthday);
+
+    pBirthdayMsg.innerHTML = msg;
+
+};
+
+function birthdayCheck(b : Date) : string {
+    let today : Date = new Date();
+
+    if (b.getDate() == today.getDate() && b.getMonth() == today.getMonth()) {
+        return 'Happy Birthday!';
+    } else {
+        today.setDate(b.getDate());
+        today.setMonth(b.getMonth());
+        return today.toString();
+    }
+}
+
+
+/*
+ *    Class demo for part 1
+ */
+
 //enums
 enum months{
     January,
