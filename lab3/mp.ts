@@ -1,9 +1,21 @@
 let map : any;
+let index = 0;
+let mapMarkers : MapMarker[] = []
+
 
 //interface
 interface LatLng {
     lat: number,
     lng: number,
+}
+
+class MapMarker {
+    Address : string;
+    Latlng : LatLng;
+
+    public constructor(address:string) {
+        this.Address = address;
+    };
 }
 
 let Toronto : LatLng = { lat: 43, lng: -79.38};
@@ -13,10 +25,16 @@ $.ajax({
     dataType: 'json',
     success: function(data) {
         for (let i of data) {
-            addMarkerWithGeocoder(i.address);
+            let newMapMaker: MapMarker = new MapMarker(i.address);
+            mapMarkers.push(newMapMaker);
         }
+
     }
 });
+
+window.onload = function () {
+    addMarkerWithGeocoder();
+}
 
 function initMap() {
 
@@ -32,22 +50,32 @@ function initMap() {
     );
 }
 
-function addMarkerWithGeocoder(address : string) {
+
+
+function addMarkerWithGeocoder() {
     let resultLatlng : LatLng = {lat: 0, lng: 0};
 
     geocoder = new google.maps.Geocoder();
 
-    geocoder.geocode(
-        {'address': address},
-        function (results, status) {
+    if (index < mapMarkers.length) {
+        console.log(index);
+        let address : string = mapMarkers[index].Address;
+        geocoder.geocode(
+            {'address': address},
+            function (results, status) {
 
-            if (status == 'OK') {
-                resultLatlng.lat = results[0].geometry.location.lat();
-                resultLatlng.lng = results[0].geometry.location.lng();
-                addMarker(resultLatlng);
+                if (status == 'OK') {
+                    index ++;
+                    resultLatlng.lat = results[0].geometry.location.lat();
+                    resultLatlng.lng = results[0].geometry.location.lng();
+                    addMarker(resultLatlng);
+                    addMarkerWithGeocoder();
+                } else {
+                    setTimeout(function(){addMarkerWithGeocoder()}, 500);
+                }
             }
-        }
-    );
+        );
+    }
 }
 
 function addMarker (location) {
