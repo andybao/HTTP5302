@@ -1,0 +1,54 @@
+.links {
+    position: relative;
+    display: inline-block;
+}
+.nested-links {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    z-index: 1;
+}
+.content {
+    display: block;
+}
+.link1ax, .link2ax {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    top: 0%;
+    left: 100%;
+    z-index: 1;
+}
+
+.link1bx, .link2bx {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 100px;
+    top: 50%;
+    left: 100%;
+    z-index: 1;
+}
+
+.links:hover .nested-links {
+    display: block;
+}
+
+.link1a:hover ~ .link1ax {
+    display: block;
+}
+
+.link1b:hover ~ .link1bx {
+    display: block;
+}
+
+.link2a:hover ~ .link2ax {
+    display: block;
+}
+
+.link2b:hover ~ .link2bx {
+    display: block;
+}
+
