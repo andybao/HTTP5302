@@ -15,9 +15,13 @@ export class GuestlistComponent implements OnInit {
 
     constructor(private peopleService: PeopleService) { }
 
-    getPeople() {
+    getPeople(queryPerson?: Person) {
 
         this.peopleService.getPeople().subscribe(results => this.guests = results);
+
+        if (queryPerson) {
+            this.peopleService.getPeople(queryPerson).subscribe(results => this.guests = results);
+        }
     }
 
     ngOnInit() {

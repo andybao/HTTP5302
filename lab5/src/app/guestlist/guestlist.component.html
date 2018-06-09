@@ -9,3 +9,15 @@
     </li>
   </ol>
 </div>
+
+<div>
+  <label>First name:</label>
+  <input [(ngModel)]="searchGuest.firstName">
+</div>
+
+<div>
+  <label>Last name:</label>
+  <input [(ngModel)]="searchGuest.lastName">
+</div>
+
+<button (click)="getPeople(searchGuest)">Search</button>
